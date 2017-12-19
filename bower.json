@@ -1,0 +1,23 @@
+{
+  "name": "zedd",
+  "description": "Zedd's persional website",
+  "main": "app.js",
+  "authors": [
+    "Zedd"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/jer0701/PersionalWebsite",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "dist/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "fontawesome#^4.7.0"
+  }
+}

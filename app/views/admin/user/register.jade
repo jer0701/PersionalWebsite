@@ -1,0 +1,30 @@
+doctype html
+html(lang='zh-CN')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    title= title
+
+    block css
+      link(rel='stylesheet', href='/libs/bootstrap/dist/css/bootstrap.min.css')
+      link(rel='stylesheet', href='/css/user.css')
+
+  body
+    form.form-signin(method='post', action='/admin/register')
+      h2.form-signin-heading 注册
+        small.pull-right
+          a(href='/admin/login') 登陆
+      != messages()
+      label.sr-only(for="email") 用户名
+      input.email.form-control(name="name", type="text", placeholder="用户名", value= name, autofocus)
+      label.sr-only(for='inputEmail') 邮箱
+      input#inputEmail.inputEmail.form-control(name='email', type='email', placeholder='邮箱', value= email)
+      label.sr-only(for='inputPassword') 密码
+      input#inputPassword.inputPassword.form-control(name='password', type='password', placeholder='密码')
+      label.sr-only(for='confirmPassword') 确认密码
+      input#confirmPassword.confirmPassword.form-control(name='confirm', type='password', placeholder='确认密码')
+      button#login-submit.btn.btn-lg.btn-primary.btn-block(type="submit") 注册
+
+  block script
+    script(src='/libs/jquery/dist/jquery.min.js')
+    script(src='/libs/bootstrap/dist/js/bootstrap.min.js')
