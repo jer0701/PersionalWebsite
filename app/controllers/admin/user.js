@@ -30,7 +30,7 @@ router.get('/register', function (req, res, next) {
 });
 
 router.get('/user/logout', function (req, res, next) {
-	req.logout();
+	req.logout(); //passport 附带的方法
   res.redirect('/admin/login');
 })
 

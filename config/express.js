@@ -56,7 +56,7 @@ module.exports = function (app, config) {
   });
 
   app.use(passport.initialize());
-  app.use(passport.session());
+  app.use(passport.session()); //这个去掉好像也可以
 
   app.use(validator({
 	   errorFormatter: function(param, msg, value) {
