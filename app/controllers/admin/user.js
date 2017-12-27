@@ -1,6 +1,8 @@
 const express = require('express')
 const	mongoose = require('mongoose')
 const passport = require('passport')
+const tools = require('./../../../config/tools.js')
+const eventproxy = require('eventproxy')
 
 let	router = express.Router()
 let User = mongoose.model('User')
@@ -47,6 +49,7 @@ router.post('/login', passport.authenticate('local', {
 router.post('/register', function (req, res, next) {
 	// 输入信息验证
 	//console.log(req.body);
+		let ep = new eventproxy();
   	req.checkBody('name', '用户名不能为空').notEmpty();
   	req.checkBody('email', '邮箱不能为空').notEmpty();
   	req.checkBody('email', '邮箱格式不正确').isEmail();
@@ -80,18 +83,22 @@ router.post('/register', function (req, res, next) {
   			password: req.body.password,
   			created: new Date()
   		});
-  		user.save(function (err) {
-  			if (err) {
-  				req.flash('error', '用户注册失败');
-	  			return res.render('admin/user/register', {
-			      name: req.body.name,
-			      email: req.body.email
-			    });
-  			} else {
-  				req.flash('success', '用户注册成功，请登录');
-	  			return res.redirect('/admin/login');
-  			}
-  		});
+			tools.bhash(req.body.password, ep.done(function (passhash) {
+				user.password = passhash;
+				user.save(function (err) {
+	  			if (err) {
+	  				req.flash('error', '用户注册失败');
+		  			return res.render('admin/user/register', {
+				      name: req.body.name,
+				      email: req.body.email
+				    });
+	  			} else {
+	  				req.flash('success', '用户注册成功，请登录');
+		  			return res.redirect('/admin/login');
+	  			}
+	  		});
+			}));
+
   	});
 });
 

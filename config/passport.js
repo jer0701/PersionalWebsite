@@ -1,9 +1,12 @@
 const passport = require('passport')
 const	LocalStrategy = require('passport-local')
 const	mongoose = require('mongoose')
+const tools = require('./tools.js')
+const eventproxy = require('eventproxy')
 let	User = mongoose.model('User')
 
 module.exports.init = function () {
+	let ep = new eventproxy();
 	passport.use(new LocalStrategy({
 	    usernameField: 'email',
 	    passwordField: 'password'
@@ -16,10 +19,14 @@ module.exports.init = function () {
 		      	if (!result) {
 		        	return done(null, false, { message: 'Incorrect email.' });
 		      	}
-		      	if (result.password !== password) {
-		        	return done(null, false, { message: 'Incorrect password.' });
-		      	}
-		      	return done(null, result);
+						tools.bcompare(password, result.password, ep.done(function(isMatch) {
+							if(isMatch) {
+								return done(null, result);
+							} else {
+								return done(null, false, { message: 'Incorrect password.' });
+							}
+						}));
+
 
 			});
 	   }
