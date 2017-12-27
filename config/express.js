@@ -8,6 +8,7 @@ const flash = require('connect-flash')
 const messages = require('express-messages')
 const validator =require('express-validator')
 const passport = require('passport')
+const favicon = require('serve-favicon')
 let User = mongoose.model('User')
 
 module.exports = function (app, config) {
@@ -22,7 +23,7 @@ module.exports = function (app, config) {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-
+  app.use(favicon(config.root + '/dist/images/favicon.ico'));
   app.use(cookieParser());
 
   app.use(session({
