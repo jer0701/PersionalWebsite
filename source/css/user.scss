@@ -1,0 +1,90 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+
+.form-signin-heading small{
+  margin-top: 20px;
+  display: inline-block;
+  font-size: 50%;
+}
+
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input.email {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input.password,
+.form-register input.confirm {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-register input.password {
+  margin: 0;
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+
+/*
+ * Error Flash
+ */
+#messages .error,
+#messages .success,
+#messages .info,
+#messages .warning {
+  margin: 0;
+  padding: 0;
+  li {
+      list-style: none;
+      padding: 5px;
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+  }
+}
+#messages .error li{
+  background-color: #f2dede;
+  border-color: #eacccc;
+  color: #a74544;
+}
+#messages .success li{
+  background-color: #dff0d9;
+  border-color: #d1e8c7;
+  color: #3e753f;
+}
+#messages .info li{
+  background-color: #daedf6;
+  border-color: #bddff0;
+  color: #34708e;
+}
+#messages .warning li{
+  background-color: #fcf8e4;
+  border-color: #bddff0;
+  color: #896c3f;
+}
