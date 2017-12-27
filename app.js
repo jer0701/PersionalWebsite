@@ -15,7 +15,7 @@ models.forEach(function (model) {
   require(model);
 });
 
-
+console.log(process.env.NODE_ENV);
 let app = express();
 require('./config/express')(app, config);
 require('./config/passport').init();
