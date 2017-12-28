@@ -19,11 +19,17 @@ module.exports = function (app, config) {
   //资源路径
   app.use(express.static(config.root + '/dist'));
 
+
+  app.use(function(req, res, next){ //没有挂载路径的中间件，应用的每个请求都会执行该中间件
+    app.locals.pageName = req.path;
+    next(); 
+  });
+  app.use(favicon(config.root + '/dist/images/favicon.ico'));
 	app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-  app.use(favicon(config.root + '/dist/images/favicon.ico'));
+
   app.use(cookieParser());
 
   app.use(session({

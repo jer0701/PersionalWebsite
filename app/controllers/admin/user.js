@@ -1,7 +1,7 @@
 const express = require('express')
 const	mongoose = require('mongoose')
 const passport = require('passport')
-const tools = require('./../../../config/tools.js')
+const tools = require('./../../../config/tools')
 const eventproxy = require('eventproxy')
 
 let	router = express.Router()

@@ -1,0 +1,86 @@
+extends ../layout_admin
+
+block content
+  h1.page-header 操作
+  ol.breadcrumb
+    li
+      a(href="/admin/posts/add")
+        i.fa.fa-file-o
+        | &nbsp;添加文章
+
+  h1.page-header 管理
+    span.badge 7
+  div.table-responsive
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th
+            i.fa.fa-plus-square-o
+            | &nbsp;选择
+          th(width="30%")
+            i.fa.fa-file
+            | &nbsp;标题
+          th
+            i.fa.fa-th-list
+            | &nbsp;分类
+          th
+            i.fa.fa-tags
+            | &nbsp;标签
+          th
+            i.fa.fa-star
+            | &nbsp;点赞
+          th
+            i.fa.fa-clock-o
+            | &nbsp;日期
+          th
+            i.fa.fa-pencil
+            | &nbsp;操作
+      tbody
+        tr
+          td
+            input.input-control(type="checkbox", name="select", value="")
+          td
+            a(href="/posts/view") 这是测试的文章标题
+          td 这个是栏目
+          td.hidden-sm PHP、JavaScript
+          td.hidden-sm 0
+          td 2017-12-28
+          td
+            a(href="/admin/posts/edit/", class="btn btn-sm btn-info") 编辑
+            &nbsp;&nbsp;
+            a(href="/admin/posts/delete/", class="btn btn-sm btn-danger") 删除
+        tr
+          td
+            input.input-control(type="checkbox", name="select", value="")
+          td
+            a(href="/posts/view") 这是测试的文章标题
+          td 这个是栏目
+          td.hidden-sm PHP、JavaScript
+          td.hidden-sm 0
+          td 2017-12-28
+          td
+            a(href="/admin/posts/edit/", class="btn btn-sm btn-info") 编辑
+            &nbsp;&nbsp;
+            a(href="/admin/posts/delete/", class="btn btn-sm btn-danger") 删除
+    footer.message_footer
+      nav
+        div.btn-toolbar.operation(role="toolbar")
+          div.btn-group(role="group")
+            a.btn.btn-default(onClick="select()") 全选
+            a.btn.btn-default(onClick="reverse()") 反选
+            a.btn.btn-default(onClick="noselect()") 全不选
+          div.btn-group(role="group")
+            a.btn.btn-default(href="#", title="删除全部选中") 删除
+        ul.pagination.pagenav
+          li
+            a(href="#")
+              span &laquo;
+          li.active
+            a(href="#") 1
+          li
+            a(href="#") 2
+          li
+            a(href="#") 3
+          li
+            a(href="#")
+              span &raquo;
