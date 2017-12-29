@@ -1,0 +1,61 @@
+extends ../layout_admin
+
+block content
+  div.row
+    div.col-md-5
+      h1.page-header 添加
+      form(method="post", action="/admin/categories/add", autocomplete="off")
+        div.form-group
+          laber(for="category-name") 分类名称
+          input#category-name.form-control(type="text", name="name", placeholder="在此处输入分类名称", required, autocomplete="off")
+          span.prompt-text 这将是它在站点显示的名字
+        div.form-group
+          laber(for="category-alias") 分类别名
+          input#category-alias.form-control(type="text", name="alias", placeholder="在此处输入分类别名", required, autocomplete="off")
+          span.prompt-text “别名”是在URL中使用的别称，它可以令URL更美观。
+        div.form-group
+          label(for="category-fname") 父节点
+          select#category-fname.form-control(name="fid")
+            option(value="0", selected="selected") 无
+          span.prompt-text 暂无这个功能
+        div.form-group
+          laber(for="category-describe") 描述
+          textarea#category-describe.form-control(name="describe", rows="4", autocomplete="off")
+          span.prompt-text 描述一下这个分类
+        button.btn.btn-primary(type="submit", name="submit") 添加新分类
+    div.col-md-7
+      h1.page-header 管理
+        span.badge= count
+      div.table-responsive
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th
+                i.fa.fa.paperclip
+                | &nbsp;ID
+              th
+                i.fa.fa.file
+                | &nbsp;名称
+              th
+                i.fa.fa.ticket
+                | &nbsp;别名
+              th
+                i.fa.fa.eyedropper
+                | &nbsp;文章数
+              th
+                i.fa.fa.pencil
+                | &nbsp;操作
+          tbody
+            each category, i in categories
+              tr
+                td= i+1
+                td= category.name
+                td= category.slug
+                td= category.papers
+                td
+                  a(href="/admin/categories/edit/" + category._id, class="btn btn-sm btn-info") 编辑
+                  &nbsp;&nbsp;
+                  a(href="/admin/categories/delete/" + category._id, class="btn btn-sm btn-danger") 删除
+        span.prompt-text
+          strong 注：
+        | 删除一个分类也会删除分类下的文章，请谨慎删除！
