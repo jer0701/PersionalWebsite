@@ -214,6 +214,7 @@ nav.pager {
 	border-radius:0
 }
 
+/*messages*/
 #messages .error, #messages .success{
 	margin:0;
 	padding:0
@@ -234,4 +235,77 @@ nav.pager {
 	background-color:#dff0d9;
 	border-color:#d1e8c7;
 	color:#3e753f
+}
+
+
+/*add-post*/
+input[type=checkbox], input[type=radio] {
+    cursor: pointer;
+    display: inline-block;
+    line-height: 0;
+    height: 16px;
+    margin: -4px 4px 0 0;
+    outline: 0;
+    padding: 0!important;
+    vertical-align: middle;
+    width: 16px;
+    min-width: 16px;
+}
+/*增加文章功能盒子*/
+.add-post-box{
+	background:#FFF;
+	margin-bottom:20px;
+	-moz-box-shadow: 0px 1px 5px rgba(0,0,0,.1);
+	-webkit-box-shadow: 0px 1px 5px rgba(0,0,0,.1);
+	box-shadow: 0px 1px 5px rgba(0,0,0,.1);
+}
+.add-post-box-title{
+    font-size: 16px;
+    padding: 8px 10px;
+    margin: 0;
+		border-bottom:#EEE solid 1px;
+}
+.add-post-box-content{
+	padding:10px 15px;
+}
+.add-post-box-content input{
+	margin-bottom:5px;
+}
+.add-post-box-footer{
+	border-top:#EEE solid 1px;
+	padding:5px 10px;
+	background:#F8F8F8;
+	height:45px;
+	clear: both;
+}
+.add-post-box-footer button{
+	float:right;
+}
+/*增加文章栏目选择*/
+.add-post-box-content .category-list{
+}
+.add-post-box-content label{
+	font-weight:500;
+	cursor:pointer;
+}
+.add-post-box-content input[type=radio]{
+    vertical-align: sub;
+}
+.add-post-box-content .category-list label em{
+	font-size:12px;
+}
+.add-post-box-content .category-list label:hover{
+	color:#3399CC;
+}
+.add-post-box-content .category-list label:hover span{
+	color:#000;
+}
+.form-group label{
+	font-weight:500;
+}
+#main .prompt-text{
+	display:inline-block;
+	color:#888;
+	font-size:12px;
+	margin: 2px;
 }
