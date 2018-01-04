@@ -1,6 +1,7 @@
 const express = require('express')
 const tools = require('./../../../config/tools')
 const	mongoose = require('mongoose')
+const async = require('async')
 
 let	router = express.Router()
 let auth = require('./user')
@@ -229,23 +230,41 @@ router.get('/delete/:id', auth.isAuthenticated, getPostById, function (req, res,
 	});
 })
 
-// 删除文章
-router.get('/delete/:id', auth.isAuthenticated, getPostById, function (req, res, next) {
+// 删除所有选中文章
+router.post('/deleteAllSelected', auth.isAuthenticated, function (req, res, next) {
 	let currentPage = req.query.page ? req.query.page : 1;
-	req.post.remove(function (err, rowsRemoved) {
-		if(err) next(err);
+	if(req.body.select) {
+		let selectList = req.body.select.toString();
+		selectList = selectList.split(",");
+		let removePost = function () {
+			for(let i = 0; i < selectList.length; i++) {
+				Post.findOne({_id: selectList[i]})
+			      .populate('author')
+			      .populate('category')
+			      .exec(function(err, post){
+			        if(err) return next(err);
+							post.remove(function (err, rowsRemoved) {
+								if(err) next(err);
+								if(rowsRemoved) {
+									req.flash('success', '文章删除成功');
+								} else {
+									req.flash('fail', '文章删除失败');
+								}
+							});
+			      });
+			}
+		}();
 
-		if(rowsRemoved) {
-			req.flash('success', '文章删除成功');
-		} else {
-			req.flash('fail', '文章删除失败');
-		}
-		if(currPage === 1){
-      res.redirect('/admin/posts');
-    } else {
-      res.redirect('/admin/posts?page=' + currentPage);
-    }
-	});
+	  res.redirect('/admin/posts');
+
+
+	} else {
+		res.redirect('/admin/posts?page=' + currentPage);
+		next();
+	}
+
+
+
 })
 
 // 工具函数，查找所有分类，结果放在 req.categories 中，可作为中间件使用

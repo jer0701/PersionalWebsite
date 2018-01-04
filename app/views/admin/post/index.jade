@@ -10,85 +10,85 @@ block content
 
   h1.page-header 管理
     span.badge= totalCount
-  form(action="/admin/posts/deleteAllSelected/", method="post")
-  div.table-responsive
-    table.table.table-striped.table-hover
-      thead
-        tr
-          th
-            i.fa.fa-plus-square-o
-            | &nbsp;选择
-          th(width="20%")
-            i.fa.fa-file
-            | &nbsp;标题
-          th
-            i.fa.fa-th-list
-            | &nbsp;分类
-          th
-            i.fa.fa-tags
-            | &nbsp;标签
-          th
-            i.fa.fa-star
-            | &nbsp;点赞
-          th
-            i.fa.fa-clock-o
-            | &nbsp;日期
-          th
-            i.fa.fa-key
-            | &nbsp;状态
-          th
-            i.fa.fa-pencil
-            | &nbsp;操作
-      tbody
-        each post in posts
+  form(action="/admin/posts/deleteAllSelected" + "?page=" + pageNum, method="post")
+    div.table-responsive
+      table.table.table-striped.table-hover
+        thead
           tr
-            td
-              input.input-control(type="checkbox", name="select", value=post._id)
-            td
-              a(href="/posts/view/" + post._id)= post.title
-            td= post.category.name
-            td.hidden-sm= post.tags
-            td.hidden-sm= post.star.favourites || 0
-            td= moment(post.created).format('YYYY-MM-DD HH:mm:ss')
-            td= post.published ? '公开' : '私密'
-            td
-              a(href="/admin/posts/edit/" + post._id, class="btn btn-sm btn-info") 编辑
-              &nbsp;&nbsp;
-              a(href="/admin/posts/delete/" + post._id + "?page=" + pageNum, class="btn btn-sm btn-danger") 删除
+            th
+              i.fa.fa-plus-square-o
+              | &nbsp;选择
+            th(width="20%")
+              i.fa.fa-file
+              | &nbsp;标题
+            th
+              i.fa.fa-th-list
+              | &nbsp;分类
+            th
+              i.fa.fa-tags
+              | &nbsp;标签
+            th
+              i.fa.fa-star
+              | &nbsp;点赞
+            th
+              i.fa.fa-clock-o
+              | &nbsp;日期
+            th
+              i.fa.fa-key
+              | &nbsp;状态
+            th
+              i.fa.fa-pencil
+              | &nbsp;操作
+        tbody
+          each post in posts
+            tr
+              td
+                input.input-control(type="checkbox", name="select", value=post._id)
+              td
+                a(href="/posts/view/" + post._id)= post.title
+              td= post.category.name
+              td.hidden-sm= post.tags
+              td.hidden-sm= post.star.favourites || 0
+              td= moment(post.created).format('YYYY-MM-DD HH:mm:ss')
+              td= post.published ? '公开' : '私密'
+              td
+                a(href="/admin/posts/edit/" + post._id, class="btn btn-sm btn-info") 编辑
+                &nbsp;&nbsp;
+                a(href="/admin/posts/delete/" + post._id + "?page=" + pageNum, class="btn btn-sm btn-danger") 删除
 
-    footer.message_footer
-      nav
-        div.btn-toolbar.operation(role="toolbar")
-          div.btn-group(role="group")
-            a.btn.btn-default(onClick="select()") 全选
-            a.btn.btn-default(onClick="reverse()") 反选
-            a.btn.btn-default(onClick="noselect()") 全不选
-          div.btn-group(role="group")
-            button.btn.btn-default(type="submit", title="删除全部选中") 删除
-        if pageCount > 1
-          ul.pagination.pagenav
-            if pageNum >= 1
-              li
-                a(href="/admin/posts?page=" + (pageNum - 1))
-                  span &laquo;
-            if pageNum > 6
-              li
-                a(href="javascript:void(0)") ...
-            - var currentPage = start
-            while currentPage <= end
-              if currentPage === pageNum
-                li.active
-                  a(href="/admin/posts?page=" + currentPage)= currentPage++
-              else
+      footer.message_footer
+        nav
+          div.btn-toolbar.operation(role="toolbar")
+            div.btn-group(role="group")
+              a.btn.btn-default(onClick="select()") 全选
+              a.btn.btn-default(onClick="reverse()") 反选
+              a.btn.btn-default(onClick="noselect()") 全不选
+            div.btn-group(role="group")
+              button.btn.btn-default(type="submit", title="删除全部选中") 删除
+          if pageCount > 1
+            ul.pagination.pagenav
+              if pageNum >= 1
                 li
-                  a(href="/admin/posts?page=" + currentPage)= currentPage++
-            if pageNum < pageCount - 6
-              li
-                a(href="javascript:void(0)") ...
-            if pageNum <= pageCount
-              li
-                a(href="/admin/posts?page=" + (pageNum + 1))
-                  span &raquo;
+                  a(href="/admin/posts?page=" + (pageNum - 1))
+                    span &laquo;
+              if pageNum > 6
+                li
+                  a(href="javascript:void(0)") ...
+              - var currentPage = start
+              while currentPage <= end
+                if currentPage === pageNum
+                  li.active
+                    a(href="/admin/posts?page=" + currentPage)= currentPage++
+                else
+                  li
+                    a(href="/admin/posts?page=" + currentPage)= currentPage++
+              if pageNum < pageCount - 6
+                li
+                  a(href="javascript:void(0)") ...
+              if pageNum <= pageCount
+                li
+                  a(href="/admin/posts?page=" + (pageNum + 1))
+                    span &raquo;
 
 append script
   script(src="/js/post.js")
