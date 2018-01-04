@@ -4,25 +4,25 @@ block content
   div.row
     form.add-article-form(action=action, method="post")
       div.col-md-9
-        h1.page-header 撰写新文章
+        h1.page-header= update? "编辑原文章" : "撰写新文章"
         div.form-group
           label.sr-only(for="post-title") 标题
-          input#post-title.form-control(type="text", name="title", placeholder="在此处输入标题", required, autofocus, autocomplete="off")
+          input#post-title.form-control(type="text", name="title", placeholder="在此处输入标题", required, autofocus=(update==false), autocomplete="off", value=post.title)
         div.form-group
           label.sr-only(for="js-post-content") 内容
-          textarea#js-post-content(name="content", required="true")= post.content
+          textarea#js-post-content(name="content", required)= post.content
           div#js-post-marked.pull-right.markdown-body
         div.add-post-box
           h2.add-post-box-title
-            span 关键字
+            span 标签
           div.add-post-box-content
-            input.form-control(type="text", name="keywords", placeholder="请输入关键字", autocomplete="off")
-            span.prompt-text 多个标签请用英文逗号,隔开
+            input.form-control(type="text", name="keywords", placeholder="请输入标签", required, autocomplete="off", value=post.tags)
+            span.prompt-text 多个标签请用中文顿号、隔开
         div.add-post-box
           h2.add-post-box-title
             span 描述
           div.add-post-box-content
-            textarea.form-control(name="describe", autocomplete="off")
+            textarea.form-control(name="describe")= post.describe
             span.prompt-text 描述是可选的手工创建的内容总结
       div.col-md-3
         h1.page-header 操作
@@ -31,23 +31,39 @@ block content
             span 分类
           div.add-post-box-content
             ul.category-list
-              li
-                label
-                  input(name="category", type="radio", value="这是分类1" checked)
-                  span 这是分类1
+              each category, i in categories
+                if update == true
+                  li
+                    label
+                      input(name="category", type="radio", value=category._id, checked=(category._id.toString() === post.category._id.toString()))
+                      span= category.name
+                else
+                  li
+                    label
+                      input(name="category", type="radio", value=category._id, checked=(i==0))
+                      span= category.name
         div.add-post-box
           h2.add-post-box-title
             span 发布
           div.add-post-box-content
             p
               label 状态：
-              span.post-status-display 未发布
-            p
-              label 公开度：
-              input(type="radio", name="visibility" value="0" checked)
-              span 公开
-              &nbsp;
-              input(type="radio", name="visibility" value="1")
-              span 私密
+              span.post-status-display= update? "已发布" : "未发布"
+            if update == true
+              p
+                label 公开度：
+                input(type="radio", name="visibility" value="1" checked=(post.published == true))
+                span 公开
+                &nbsp;
+                input(type="radio", name="visibility" value="0" checked=(post.published == false))
+                span 私密
+            else
+              p
+                label 公开度：
+                input(type="radio", name="visibility" value="1" checked)
+                span 公开
+                &nbsp;
+                input(type="radio", name="visibility" value="0")
+                span 私密
           div.add-post-box-footer
-            button.btn.btn-primary(type="submit" name="submit") 发布
+            button.btn.btn-primary(type="submit" name="submit")= update? "更新" : "发布"

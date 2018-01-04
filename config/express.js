@@ -9,6 +9,7 @@ const messages = require('express-messages')
 const validator =require('express-validator')
 const passport = require('passport')
 const favicon = require('serve-favicon')
+const moment = require('moment')
 let User = mongoose.model('User')
 
 module.exports = function (app, config) {
@@ -22,7 +23,8 @@ module.exports = function (app, config) {
 
   app.use(function(req, res, next){ //没有挂载路径的中间件，应用的每个请求都会执行该中间件
     app.locals.pageName = req.path;
-    next(); 
+    app.locals.moment = moment;
+    next();
   });
   app.use(favicon(config.root + '/dist/images/favicon.ico'));
 	app.use(bodyParser.json());
