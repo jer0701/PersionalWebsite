@@ -34,7 +34,7 @@ router.get('/register', function (req, res, next) {
 router.get('/user/logout', function (req, res, next) {
 	req.logout(); //passport 附带的方法
   res.redirect('/admin/login');
-})
+});
 
 router.post('/login', passport.authenticate('local', {
     // 密码验证
@@ -109,3 +109,42 @@ let isAuthenticated = function (req,res,next) {
     res.redirect('/admin/login');
 }
 module.exports.isAuthenticated = isAuthenticated;
+
+// 修改密码页面
+router.get('/user/password', function (req, res, next) {
+	res.render('admin/user/password', {
+		title: '修改密码 - 博客后台系统',
+		action: '/admin/user/password'
+	});
+});
+
+// 更新密码
+router.post('/user/password', isAuthenticated, function (req, res, next) {
+	let ep = new eventproxy();
+	// 验证输入
+  req.checkBody('password', '密码不能为空').notEmpty();
+  req.checkBody('confirm', '两次输入密码不一致').notEmpty().equals(req.body.password);
+
+	let errors = req.validationErrors();
+	if(errors) {
+		req.flash('error', errors[0].msg);
+    return res.redirect('/admin/user/password');
+	}
+
+	let user_id = req.user._id.toString();
+	tools.bhash(req.body.password, ep.done(function (passhash) {
+		//user.password = passhash;
+		User.update({
+			_id: user_id
+		}, {
+			password: passhash
+		}, function (err) {
+			if(err) {
+				req.flash('error', '修改失败');
+			} else {
+				req.flash('success', '修改成功');
+			}
+			res.redirect('/admin/user/password');
+		});
+	}));
+});
