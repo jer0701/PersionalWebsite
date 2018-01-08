@@ -1,5 +1,7 @@
 extends ../layout_admin
 
+append css
+  link(rel="stylesheet", href="/libs/github-markdown-css/github-markdown.css")
 block content
   div.row
     form.add-article-form(action=action, method="post")
@@ -67,3 +69,7 @@ block content
                 span 私密
           div.add-post-box-footer
             button.btn.btn-primary(type="submit" name="submit")= update? "更新" : "发布"
+
+append script
+  script(src="/libs/marked/lib/marked.js")
+  script(src="/js/markdown.min.js")
