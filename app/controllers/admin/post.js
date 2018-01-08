@@ -222,7 +222,7 @@ router.get('/delete/:id', auth.isAuthenticated, getPostById, function (req, res,
 		} else {
 			req.flash('fail', '文章删除失败');
 		}
-		if(currPage === 1){
+		if(currentPage === 1){
       res.redirect('/admin/posts');
     } else {
       res.redirect('/admin/posts?page=' + currentPage);
@@ -247,15 +247,15 @@ router.post('/deleteAllSelected', auth.isAuthenticated, function (req, res, next
 								if(err) next(err);
 								if(rowsRemoved) {
 									req.flash('success', '文章删除成功');
+									res.redirect('/admin/posts');
 								} else {
 									req.flash('fail', '文章删除失败');
+									res.redirect('/admin/posts');
 								}
 							});
 			      });
 			}
 		}();
-
-	  res.redirect('/admin/posts');
 
 
 	} else {

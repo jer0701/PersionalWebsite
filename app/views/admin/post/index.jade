@@ -54,7 +54,7 @@ block content
               td
                 a(href="/admin/posts/edit/" + post._id, class="btn btn-sm btn-info") 编辑
                 &nbsp;&nbsp;
-                a(href="/admin/posts/delete/" + post._id + "?page=" + pageNum, class="btn btn-sm btn-danger") 删除
+                a(href="/admin/posts/delete/" + post._id + "?page=" + pageNum, class="btn btn-sm btn-danger", onClick="if(!confirm('此操作不可逆，是否确认？'))return false;") 删除
 
       footer.message_footer
         nav
@@ -64,7 +64,7 @@ block content
               a.btn.btn-default(onClick="reverse()") 反选
               a.btn.btn-default(onClick="noselect()") 全不选
             div.btn-group(role="group")
-              button.btn.btn-default(type="submit", title="删除全部选中") 删除
+              button#deleteAll.btn.btn-default(type="submit", title="删除全部选中") 删除
           if pageCount > 1
             ul.pagination.pagenav
               if pageNum >= 1
@@ -91,4 +91,4 @@ block content
                     span &raquo;
 
 append script
-  script(src="/js/post.js")
+  script(src="/js/post.min.js")

@@ -55,7 +55,7 @@ block content
                 td
                   a(href="/admin/categories/edit/" + category._id, class="btn btn-sm btn-info") 编辑
                   &nbsp;&nbsp;
-                  a(href="/admin/categories/delete/" + category._id, class="btn btn-sm btn-danger") 删除
+                  a(href="/admin/categories/delete/" + category._id, class="btn btn-sm btn-danger", onClick="if(!confirm('此操作不可逆，是否确认？'))return false;") 删除
         span.prompt-text
           strong 注：
         | 删除一个分类也会删除分类下的文章，请谨慎删除！
