@@ -1,4 +1,127 @@
 extends ../layout
 
+append css
+  link(rel='stylesheet', href='/css/blog.css')
+  link(href="/libs/font-awesome/css/font-awesome.min.css", rel="stylesheet")
+
 block main
-  block content
+  header
+    //-超小屏幕不显示
+    div.hidden-xs header
+      h1.logo
+        a(href="/", title="吉不可nai")
+      ul.nav.hidden-xs-nav
+        li
+          a(href='/')
+            i.fa.fa-home
+            |&nbsp;网站首页
+          a(href='/')
+            i.fa.fa-leaf
+            |&nbsp;网站分类
+          a(href='/')
+            i.fa.fa-leaf
+            |&nbsp;网站分类
+          a(href='/')
+            i.fa.fa-leaf
+            |&nbsp;网站分类
+          a(href='/blogs/about')
+            i.fa.fa-user
+            |&nbsp;关于我的
+          a(href='/blogs/friendly')
+            i.fa.fa-tags
+            |&nbsp;友情链接
+      div.feeds
+        a.feed.feed-xlweibo(href="#", target="_blank")
+          i.fa.fa-github Github
+        a.feed.feed-txweibo(href="#", target="_blank")
+          i.fa.fa-telegram 知乎
+      div.wall
+        a(href=#) 标签云
+    //-超小屏幕可见
+    div.visible-xs.header-xs
+      div.navbar-header.header-xs-logo
+        button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#header-xs-menu", aria-expanded="false", aria-controls="navbar")
+          span.fa.fa-list
+      div#header-xs-menu.navbar-collapse.collapse
+        ul.nav.navbar-nav.header-xs-nav
+          li
+            a(href='/')
+              i.fa.fa-home
+              |&nbsp;网站首页
+            a(href='/')
+              i.fa.fa-leaf
+              |&nbsp;网站分类
+            a(href='/')
+              i.fa.fa-leaf
+              |&nbsp;网站分类
+            a(href='/')
+              i.fa.fa-leaf
+              |&nbsp;网站分类
+            a(href='/blogs/about')
+              i.fa.fa-user
+              |&nbsp;关于我的
+            a(href='/blogs/friendly')
+              i.fa.fa-tags
+              |&nbsp;友情链接
+        form.navbar-form(action="#", method="post", style="padding:0 25px;")
+          div.input-group
+            input.form-control(type="text", placeholder="请输入关键字")
+            span.input-group-btn
+            button.btn.btn-default.btn-search(type="submit") 搜索
+  //-超小屏幕可见
+  div.content-wrap
+    div.content
+      div#carousel-example-generic.carousel.slide(data-ride="carousel")
+        ol.carousel-indicators
+          li.active(data-target="#carousel-example-generic", data-slide-to="0")
+          li(data-target="#carousel-example-generic", data-slide-to="1")
+          li(data-target="#carousel-example-generic", data-slide-to="2")
+        div.carousel-inner(role="listbox")
+          div.item.active
+            a(href="#")
+              img(src="images/img1.jpg")
+            div.carousel-caption 欢迎来到异清轩技术博客，在这里可以看到网站前端和后端的技术等
+            span.carousel-bg
+          div.item
+            a(href="#")
+              img(src="images/img2.jpg")
+            div.carousel-caption 欢迎来到异清轩技术博客，在这里可以看到网站前端和后端的技术等
+            span.carousel-bg
+          div.item
+            a(href="#")
+              img(src="images/img3.jpg")
+            div.carousel-caption 欢迎来到异清轩技术博客，在这里可以看到网站前端和后端的技术等
+            span.carousel-bg
+        a.left.carousel-control(href="javascript:void(0)", data-slide="prev", role="button")
+          span.fa.fa-angle-left(aria-hidden="true")
+        a.right.carousel-control(href="javascript:void(0)", data-slide="next", role="button")
+          span.fa.fa-angle-right(aria-hidden="true")
+      div.content-block.new-content
+        h2.title
+          strong 最新文章
+        block content
+        div.row
+          div.news-list
+          div.news-list
+        div.quotes(style="margin-top:15px")
+          span.disabled 首页
+          span.disable 上一页
+          span.current 1
+          a(href="#") 2
+          a(href="#") 3
+          a(href="#") 下一页
+          a(href="#") 尾页
+
+  aside.sidebar.visible-lg
+    div.sentence
+      strong 励志名言
+      h2 2015年11月1日 星期日
+      p 你是我人生中唯一的主角，我却只能是你故事中的一晃而过得路人甲。
+    div#search.sidebar-block.search(role="search")
+      h2.title
+        strong 搜索
+      form.navbar-form(action="#", method="post")
+        div.input-group
+          input.form-control(type="text", placeholder="请输入关键字")
+          span.input-group-btn
+          button.btn.btn-default.btn-search(type="submit") 搜索
