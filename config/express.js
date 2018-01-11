@@ -10,7 +10,9 @@ const validator =require('express-validator')
 const passport = require('passport')
 const favicon = require('serve-favicon')
 const moment = require('moment')
+const truncate = require('truncate');
 let User = mongoose.model('User')
+let Category = mongoose.model('Category')
 
 module.exports = function (app, config) {
   //设置模板引擎
@@ -24,6 +26,11 @@ module.exports = function (app, config) {
   app.use(function(req, res, next){ //没有挂载路径的中间件，应用的每个请求都会执行该中间件
     app.locals.pageName = req.path;
     app.locals.moment = moment;
+    app.locals.truncate = truncate;
+    Category.find({}).sort('created').exec(function(err, categories){
+  		if(err) return next(err);
+  		app.locals.categories = categories;
+  	});
     next();
   });
   app.use(favicon(config.root + '/dist/images/favicon.ico'));

@@ -1,4 +1,47 @@
 extends layout_blog
 
 block content
-  h2 hello world
+  if keywords == 1
+    div#carousel-example-generic.carousel.slide(data-ride="carousel")
+      ol.carousel-indicators
+        li.active(data-target="#carousel-example-generic", data-slide-to="0")
+      div.carousel-inner(role="listbox")
+        div.item.active
+          a(href="#")
+            img(src="images/img1.jpg")
+          div.carousel-caption 放这张图片你有意见么
+          span.carousel-bg
+      a.left.carousel-control(href="#carousel-example-generic", data-slide="prev", role="button")
+        span.fa.fa-angle-left(aria-hidden="true")
+      a.right.carousel-control(href="#carousel-example-generic", data-slide="next", role="button")
+        span.fa.fa-angle-right(aria-hidden="true")
+  div.content-block.new-content
+    h2.title
+      strong 文章列表
+
+    div.row
+      each post in posts
+        div.news-list
+          div.news-info
+            dl
+              dt
+                a(href="#")= post.title
+              dd
+                span.name= post.author.name
+                span.identity
+                span.time= moment(post.created).format('YYYY-MM-DD HH:mm:ss')
+              dd.text= truncate(post.summary, 160)
+          div.news_bot
+            span.tags.visible-lg.visible-md
+              a(href="#")= post.tags
+              a(href="#")= post.tags
+
+
+    div.quotes(style="margin-top:15px")
+      span.disabled 首页
+      span.disabled 上一页
+      span.current 1
+      a(href="#") 2
+      a(href="#") 3
+      a(href="#") 下一页
+      a(href="#") 尾页
