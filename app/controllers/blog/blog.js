@@ -72,6 +72,9 @@ router.get('/', function (req, res, next) {
           marked_content = clearUtil.clearXMLTags(marked_content);
           marked_content = clearUtil.clearReturns(marked_content);
           posts_sliced[i].summary = marked_content;
+
+          // 解析tag标签
+          posts_sliced[i].labels = posts_sliced[i].tags.split("、");
         }
 
         res.render('blog/index', {

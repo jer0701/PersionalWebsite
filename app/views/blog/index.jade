@@ -27,21 +27,51 @@ block content
               dt
                 a(href="#")= post.title
               dd
-                span.name= post.author.name
+
+                span.name
+                  i.fa.fa-user-circle
+                  |&nbsp;
+                  i.fa= post.author.name
                 span.identity
-                span.time= moment(post.created).format('YYYY-MM-DD HH:mm:ss')
+                span.time
+                  i.fa.fa-clock-o
+                  |&nbsp;
+                  i.fa= moment(post.created).format('YYYY-MM-DD HH:mm:ss')
               dd.text= truncate(post.summary, 160)
-          div.news_bot
-            span.tags.visible-lg.visible-md
-              a(href="#")= post.tags
-              a(href="#")= post.tags
+            div.news_bot
+              span.tags.visible-lg.visible-md
+                each tag in post.labels
+                  a(href="#")= tag
 
 
     div.quotes(style="margin-top:15px")
-      span.disabled 首页
-      span.disabled 上一页
-      span.current 1
-      a(href="#") 2
-      a(href="#") 3
-      a(href="#") 下一页
-      a(href="#") 尾页
+      if pageCount == 1
+        span.disabled 首页
+        span.disabled 上一页
+        span.current 1
+        span.disabled 下一页
+        span.disabled 尾页
+      else if pageCount > 1
+        if pageNum == 1
+          span.disabled 首页
+          span.disabled 上一页
+        if pageNum > 1
+          a(href="#") 首页
+          a(href="#") 上一页
+        if pageNum > 4
+            a(href="javascript:void(0)") ...
+        - var currentPage = start
+        while currentPage <= end
+          if currentPage === pageNum
+              span.current= currentPage++
+          else
+              a(href="/blogs?page=" + currentPage)= currentPage++
+
+        if pageNum < pageCount - 4
+            a(href="javascript:void(0)") ...
+        if pageNum < pageCount
+          a(href="#") 下一页
+          a(href="#") 尾页
+        if pageNum == pageCount
+          span.disabled 下一页
+          span.disabled 尾页
