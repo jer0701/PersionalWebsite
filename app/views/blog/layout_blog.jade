@@ -18,9 +18,8 @@ block main
               |&nbsp;网站首页
             each category in categories
               a(href="/blogs/category/" + category.name)
-                i.fa.fa-leaf
-                |&nbsp;
-                i.fa= category.name
+                i.fa.fa-leaf &nbsp;
+                = category.name
             a(href="/blogs/about")
               i.fa.fa-user
               |&nbsp;关于我的

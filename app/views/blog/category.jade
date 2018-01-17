@@ -1,23 +1,9 @@
 extends layout_blog
 
 block content
-  if keywords == 1
-    div#carousel-example-generic.carousel.slide(data-ride="carousel")
-      ol.carousel-indicators
-        li.active(data-target="#carousel-example-generic", data-slide-to="0")
-      div.carousel-inner(role="listbox")
-        div.item.active
-          a(href="#")
-            img(src="images/img1.jpg")
-          div.carousel-caption 放这张图片你有意见么
-          span.carousel-bg
-      a.left.carousel-control(href="#carousel-example-generic", data-slide="prev", role="button")
-        span.fa.fa-angle-left(aria-hidden="true")
-      a.right.carousel-control(href="#carousel-example-generic", data-slide="next", role="button")
-        span.fa.fa-angle-right(aria-hidden="true")
   div.content-block.new-content
     h2.title
-      strong 文章列表
+      strong=category.name + '(' + totalLen + ')'
 
     div.row
       each post in posts
@@ -54,8 +40,8 @@ block content
           span.disabled 首页
           span.disabled 上一页
         if pageNum > 1
-          a(href="/blogs?page=1") 首页
-          a(href="/blogs?page=" + (pageNum - 1)) 上一页
+          a(href="/blogs/category/" + category.name + "?page=1") 首页
+          a(href="/blogs/category/" + category.name + "?page=" + (pageNum - 1)) 上一页
         if pageNum > 4
             a(href="javascript:void(0)") ...
         - var currentPage = start
@@ -63,13 +49,13 @@ block content
           if currentPage === pageNum
               span.current= currentPage++
           else
-              a(href="/blogs?page=" + currentPage)= currentPage++
+              a(href="/blogs/category/" + category.name + "?page=" + currentPage)= currentPage++
 
         if pageNum < pageCount - 4
             a(href="javascript:void(0)") ...
         if pageNum < pageCount
-          a(href="/blogs?page=" + (pageNum + 1)) 下一页
-          a(href="/blogs?page=" + pageCount) 尾页
+          a(href="/blogs/category/" + category.name + "?page=" + (pageNum + 1)) 下一页
+          a(href="/blogs/category/" + category.name + "?page=" + pageCount) 尾页
         if pageNum == pageCount
           span.disabled 下一页
           span.disabled 尾页

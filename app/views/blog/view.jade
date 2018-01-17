@@ -1,0 +1,57 @@
+extends layout_blog
+
+append css
+  link(rel="stylesheet", href="/libs/github-markdown-css/github-markdown.css")
+
+block content
+  != messages()
+  header.news_header
+    h2= post.title
+    ul
+      li
+        span= post.author.name
+        &nbsp;发布于&nbsp;
+        span= moment(post.created).format('YYYY-MM-DD')
+      li
+        span 分类：&nbsp;
+          a(href="/blogs/category/" + category.name)= category.name
+  article.news_content
+    != mdContent
+  div.reprint 转载请说明出处：
+    a(href="/") 吉不可nai »&nbsp;
+    a(href="/blogs/view/" + post._id)= post.title
+  div.zambia
+    a(href="/blogs/favourite/" + post._id, name="zambia")
+      span.fa.fa-thumbs-o-up &nbsp;
+      span 赞（
+      span= post.star.favourites  || 0
+      span ）
+  div.tags.news_tags 标签：
+    each tag in post.labels
+      span(title="查看关于" + tag + "的文章")
+        a(href="#")= tag
+  nav.page-nav
+    if prevPost
+      span.page-nav-prev 上一篇
+        br
+        a(href="/blogs/view/" + prevPost._id)= prevPost.title
+    if nextPost
+      span.page-nav-next 下一篇
+        br
+        a(href="/blogs/view/" + nextPost._id)= nextPost.title
+  div.content-block.comment
+    h2.title
+      strong 评论
+    form#comment-form.form-inline(action= action, method="post")
+      div.comment-title
+        div.form-group
+          label(for="commentName") 昵称：
+          input#commentName.form-control(type="text", name="commentName")
+        div.form-group
+          label(for="commentEmail") 邮箱：
+          input#commentEmail.form-control(type="email", name="commentEmail")
+      div.comment-form
+        textarea(placeholder="你的评论可以一针见血", name="commentContent")
+        div.comment-form-footer
+          div.comment-form-btn
+            button.btn.btn-default.btn-comment(type="submit") 提交评论

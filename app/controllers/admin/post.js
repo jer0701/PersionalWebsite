@@ -81,7 +81,7 @@ router.post('/add', auth.isAuthenticated, function (req, res, next) {
 
 	// 获取当然用户
 	if(req.user){
-		let currentUser = req.user._id.toString();
+		var currentUser = req.user._id.toString();
 	} else {
 		req.flash('error', '登录超时，请重新登录');
 		return res.redirect('/admin/login');

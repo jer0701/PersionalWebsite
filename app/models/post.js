@@ -11,6 +11,7 @@ var PostSchema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     published: { type: Boolean, default: false },
     star: { type: Schema.Types.Mixed }, //nested
+    comments: [ Schema.Types.Mixed ],  //nested
     describe: { type: String },
     created: { type: Date }
 });

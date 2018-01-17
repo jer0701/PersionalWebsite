@@ -1039,3 +1039,25 @@ textarea::-webkit-scrollbar-thumb {
 	display: block;
 }
 }
+
+#messages .error, #messages .success{
+	margin:0;
+	padding:0
+}
+#messages .error li, #messages .success li{
+	list-style:none;
+	padding:5px;
+	margin-bottom:10px;
+	border:1px solid transparent;
+	border-radius:4px
+}
+#messages .error li {
+	background-color:#f2dede;
+	border-color:#eacccc;
+	color:#a74544
+}
+#messages .success li {
+	background-color:#dff0d9;
+	border-color:#d1e8c7;
+	color:#3e753f
+}
