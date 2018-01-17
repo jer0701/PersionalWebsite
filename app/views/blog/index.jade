@@ -39,7 +39,7 @@ block content
             div.news_bot
               span.tags.visible-lg.visible-md
                 each tag in post.labels
-                  a(href="#")= tag
+                  a(href="/blogs/tag/" + tag)= tag
 
 
     div.quotes(style="margin-top:15px")

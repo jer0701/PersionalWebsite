@@ -3,7 +3,7 @@ extends layout_blog
 block content
   div.content-block.new-content
     h2.title
-      strong=category.name + '(' + totalLen + ')'
+      strong=tag + '(' + totalLen + ')'
 
     div.row
       each post in posts
@@ -40,8 +40,8 @@ block content
           span.disabled 首页
           span.disabled 上一页
         if pageNum > 1
-          a(href="/blogs/category/" + category.name + "?page=1") 首页
-          a(href="/blogs/category/" + category.name + "?page=" + (pageNum - 1)) 上一页
+          a(href="/blogs/tag/" + tag + "?page=1") 首页
+          a(href="/blogs/tag/" + tag + "?page=" + (pageNum - 1)) 上一页
         if pageNum > 4
             a(href="javascript:void(0)") ...
         - var currentPage = start
@@ -49,13 +49,13 @@ block content
           if currentPage === pageNum
               span.current= currentPage++
           else
-              a(href="/blogs/category/" + category.name + "?page=" + currentPage)= currentPage++
+              a(href="/blogs/tag/" + tag + "?page=" + currentPage)= currentPage++
 
         if pageNum < pageCount - 4
             a(href="javascript:void(0)") ...
         if pageNum < pageCount
-          a(href="/blogs/category/" + category.name + "?page=" + (pageNum + 1)) 下一页
-          a(href="/blogs/category/" + category.name + "?page=" + pageCount) 尾页
+          a(href="/blogs/tag/" + tag + "?page=" + (pageNum + 1)) 下一页
+          a(href="/blogs/tag/" + tag + "?page=" + pageCount) 尾页
         if pageNum == pageCount
           span.disabled 下一页
           span.disabled 尾页

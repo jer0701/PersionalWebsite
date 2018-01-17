@@ -29,7 +29,7 @@ block content
   div.tags.news_tags 标签：
     each tag in post.labels
       span(title="查看关于" + tag + "的文章")
-        a(href="#")= tag
+        a(href="/blogs/tag/" + tag)= tag
   nav.page-nav
     if prevPost
       span.page-nav-prev 上一篇

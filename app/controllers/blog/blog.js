@@ -153,11 +153,78 @@ router.get('/category/:name', function (req, res, next) {
                       start: start,
                       end: end,
                       category: category,
-                      totalLen: totalCount,
+                      totalLen: totalCount
                     });
                   })
             }
           });
+});
+
+// 标签页面渲染
+router.get('/tag/:name', function (req, res, next) {
+  if(!req.params.name) return next(new Error('No Tag Name'));
+
+  // 只显示公开的
+  let conditions = {
+    published: true,
+    $and: [{'published': true}] // $or $and这些数组必须是非空
+  }
+  let reg = new RegExp(req.params.name.trim(), 'i');
+  conditions.$and = [{'tags': reg}];
+
+  Post.find(conditions)
+      .sort('created')
+      .populate('author')
+      .populate('category')
+      .exec(function (err, posts) {
+        // 分页设置
+        let pageNum = Math.abs(parseInt(req.query.page || 1, 10));
+        let pageSize = 8;   // 每页 8 篇
+
+        let totalCount = posts.length;
+        let pageCount = Math.ceil(totalCount / pageSize);  //计算总页数
+
+        // 处理不合理页码
+        if(pageNum > pageCount){
+          pageNum = pageCount;
+        }
+        if(pageNum <= 0){
+          pageNum = 1;
+
+
+        }
+
+        //计算页码部分显示区域
+        let start = pageNum - 3; // 显示3个
+        let end = pageNum + 3;
+        if(start <= 0) start = 1;
+        if(end > pageCount) end = pageCount;
+
+        let posts_sliced = posts.slice((pageNum - 1) * pageSize, pageNum * pageSize);
+        // 解析 markdown 文本
+        for(let i = 0, len = posts_sliced.length; i < len; i++){
+          let marked_content = marked(posts_sliced[i].content);
+          marked_content = clearUtil.clearScripts(marked_content);
+          marked_content = clearUtil.clearXMLTags(marked_content);
+          marked_content = clearUtil.clearReturns(marked_content);
+          posts_sliced[i].summary = marked_content;
+
+          // 解析tag标签
+          posts_sliced[i].labels = posts_sliced[i].tags.split("、");
+        }
+
+        // 渲染页面
+        res.render('blog/tag', {
+          title: "吉不可nai - " + req.params.name,
+          tag: req.params.name,
+          posts: posts_sliced,
+          pageNum: pageNum,
+          pageCount: pageCount,
+          start: start,
+          end: end,
+          totalLen: totalCount
+        });
+      })
 });
 
 // 文章内容显示页面渲染
@@ -265,6 +332,28 @@ router.post('/comment/:id', getPostById, function (req, res, next) {
   });
 
 });
+
+// 关于我的页面渲染
+router.get('/about', function (req, res, next) {
+  res.render('blog/about', {
+    title: "吉不可nai - 关于我"
+  });
+})
+
+// 友情链接页面渲染
+router.get('/friendly', function (req, res, next) {
+  res.render('blog/friendly', {
+    title: "吉不可nai - 友情链接"
+  });
+})
+
+// 标签云页面渲染
+router.get('/label', function (req, res, next) {
+  res.render('blog/label', {
+    title: "吉不可nai - 标签云"
+  });
+})
+
 
 // 工具函数，根据分类 id 查看w文章，结果放在 req.post 中，可作为中间件使用
 function getPostById(req, res, next){
