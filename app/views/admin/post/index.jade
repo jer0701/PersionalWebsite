@@ -45,7 +45,7 @@ block content
               td
                 input.input-control(type="checkbox", name="select", value=post._id)
               td
-                a(href="/posts/view/" + post._id)= post.title
+                a(href="/blogs/view/" + post._id, target="_blank")= post.title
               td= post.category.name
               td.hidden-sm= post.tags
               td.hidden-sm= post.star.favourites || 0

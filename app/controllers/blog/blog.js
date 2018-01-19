@@ -321,6 +321,7 @@ router.post('/comment/:id', getPostById, function (req, res, next) {
   };
 
   // 保存评论
+  req.post.comments.unshift(comment); // 默认按时间排列
   req.post.markModified('comments');
   req.post.save(function(err,post){
   if(err){

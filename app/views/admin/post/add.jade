@@ -26,6 +26,14 @@ block content
           div.add-post-box-content
             textarea.form-control(name="describe")= post.describe
             span.prompt-text 描述是可选的手工创建的内容总结
+        if update && post.comments.length
+          div.add-post-box
+            h2.add-post-box-title
+              span 有人评论
+            div.add-post-box-content
+              div#post-comments
+                each comment in post.comments
+                  div= comment.name + "("+comment.email+")" + ": " + comment.content
       div.col-md-3
         h1.page-header 操作
         div.add-post-box
