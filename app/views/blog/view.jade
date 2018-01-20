@@ -15,7 +15,7 @@ block content
       li
         span 分类：&nbsp;
           a(href="/blogs/category/" + category.name)= category.name
-  article.news_content
+  article.news_content.markdown-body
     != mdContent
   div.reprint 转载请说明出处：
     a(href="/") 吉不可nai »&nbsp;

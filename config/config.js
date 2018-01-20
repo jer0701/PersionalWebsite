@@ -9,7 +9,8 @@ let config = {
       name: 'Blog'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/blog'
+    db: 'mongodb://localhost/blog',
+    invitationCode: '1111'
   },
   test: {
     root: rootPath,
@@ -17,7 +18,8 @@ let config = {
       name: 'Blog'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/blog'
+    db: 'mongodb://localhost/blog',
+    invitationCode: '1111'
   },
   production: {
     root: rootPath,
@@ -25,7 +27,8 @@ let config = {
       name: 'Blog'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/blog'
+    db: 'mongodb://localhost/blog',
+    invitationCode: '1111'
   }
 }
 

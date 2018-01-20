@@ -2,6 +2,7 @@ const express = require('express')
 const	mongoose = require('mongoose')
 const passport = require('passport')
 const tools = require('./../../../config/tools')
+const config = require('./../../../config/config')
 const eventproxy = require('eventproxy')
 
 let	router = express.Router()
@@ -65,6 +66,7 @@ router.post('/register', function (req, res, next) {
 	    });
   	}
 
+
   	//查找邮箱，防止重复注册
   	User.findOne({email: req.body.email}, function (err, result) { //findOne比find要快，只要找到一条就可以
   		//console.log(result);  //返回的是一个json对象
@@ -75,6 +77,14 @@ router.post('/register', function (req, res, next) {
 		      email: ''
 		    });
   		}
+
+			if(req.body.code !== config.invitationCode) {
+				req.flash('error', '邀请码错误');
+  			return res.render('admin/user/register', {
+		      name: req.body.name,
+		      email: req.body.email
+		    });
+			}
 
   		//保存注册用户
   		let user = new User({

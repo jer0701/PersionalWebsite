@@ -226,32 +226,24 @@ router.get('/delete/:id', auth.isAuthenticated, getPostById, function (req, res,
 	});
 })
 
+
 // 删除所有选中文章
 router.post('/deleteAllSelected', auth.isAuthenticated, function (req, res, next) {
 	let currentPage = req.query.page ? req.query.page : 1;
 	if(req.body.select) {
 		let selectList = req.body.select.toString();
 		selectList = selectList.split(",");
-		let removePost = function () {
-			for(let i = 0; i < selectList.length; i++) {
-				Post.findOne({_id: selectList[i]})
-			      .populate('author')
-			      .populate('category')
-			      .exec(function(err, post){
-			        if(err) return next(err);
-							post.remove(function (err, rowsRemoved) {
-								if(err) next(err);
-								if(rowsRemoved) {
-									req.flash('success', '文章删除成功');
-									res.redirect('/admin/posts');
-								} else {
-									req.flash('fail', '文章删除失败');
-									res.redirect('/admin/posts');
-								}
-							});
-			      });
-			}
-		}();
+
+		Post.remove({_id: {'$in':selectList}}, function (err, result) {
+			//console.log(result);
+			if(err) {
+				req.flash('fail', '文章删除失败');
+				return next(err)
+			};
+			req.flash('success', '文章删除成功');
+			res.redirect('/admin/posts');
+		});
+
 
 
 	} else {
