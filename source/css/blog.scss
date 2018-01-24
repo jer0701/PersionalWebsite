@@ -965,9 +965,13 @@ textarea::-webkit-scrollbar-thumb {
 @media (max-width: 767px) {
 	.footer {
 		margin: 0px 20px;
+		padding: 20px 0 30px 20px;
 	}
 }
 @media (max-width: 560px) {
+	.footer {
+		padding: 20px 0 30px 20px;
+	}
 	.footer span {
 		display: block;
 	}
